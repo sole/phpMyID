@@ -444,7 +444,7 @@ function checkid ( $wait ) {
 	}
 
 	// transfer the user to the url accept mode if they're paranoid
-	if ($wait == 1 && isset($profile['paranoid']) && $profile['paranoid'] === true && (! session_is_registered('accepted_url') || $_SESSION['accepted_url'] != $trust_root)) {
+	if ($wait == 1 && isset($profile['paranoid']) && $profile['paranoid'] === true && (! isset( $_SESSION['accepted_url'] ) || $_SESSION['accepted_url'] != $trust_root)) {
 		$_SESSION['cancel_accept_url'] = $cancel_url;
 		$_SESSION['post_accept_url'] = $profile['req_url'];
 		$_SESSION['unaccepted_url'] = $trust_root;
@@ -1341,11 +1341,11 @@ function secret ( $handle ) {
 	session_start();
 	debug('Started session to acquire key: ' . session_id());
 
-	$secret = session_is_registered('shared_secret')
+	$secret = isset( $_SESSION['shared_secret'] )
 		? base64_decode($_SESSION['shared_secret'])
 		: false;
 
-	$expiration = session_is_registered('expiration')
+	$expiration = isset( $_SESSION['expiration'] )
 		? $_SESSION['expiration']
 		: null;
 
