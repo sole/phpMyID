@@ -568,7 +568,7 @@ function checkid_setup_mode () {
  */
 function error_mode () {
 	isset($_REQUEST['openid_error']) 
-		? wrap_html($_REQUEST['openid_error'])
+		? wrap_html(htmlentities($_REQUEST['openid_error']))
 		: error_500();
 }
 
