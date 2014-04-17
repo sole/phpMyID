@@ -439,7 +439,7 @@ function checkid ( $wait ) {
 	if ($trust_root != $return_to) {
 		// the urls are not the same, be sure return decends from trust
 		if (! url_descends($return_to, $trust_root))
-			error_500('Invalid trust_root: "' . $trust_root . '"');
+			error_500('Invalid trust_root: "' . htmlentities($trust_root) . '"');
 
 	}
 
