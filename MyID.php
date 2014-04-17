@@ -100,7 +100,7 @@ function accept_mode () {
 	$yes = $profile['req_url'] . $q . 'accepted=yes';
 	$no  = $profile['req_url'] . $q . 'accepted=no';
 
-	wrap_html('The client site you are attempting to log into has requested that you trust the following URL:<br/><b>' . $_SESSION['unaccepted_url'] . '</b><br/><br/>Do you wish to continue?<br/><a href="' . $yes . '">Yes</a> | <a href="' . $no . '">No</a>');
+	wrap_html('The client site you are attempting to log into has requested that you trust the following URL:<br/><b>' . htmlentities($_SESSION['unaccepted_url']) . '</b><br/><br/>Do you wish to continue?<br/><a href="' . $yes . '">Yes</a> | <a href="' . $no . '">No</a>');
 }
 
 /** * Perform an association with a consumer
