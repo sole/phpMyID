@@ -1792,6 +1792,7 @@ $run_mode = (isset($_REQUEST['openid_mode'])
 	: 'no';
 
 // Run in the determined runmode
+ini_set('session.cookie_httponly',1);
 debug("Run mode: $run_mode at: " . time());
 debug($_REQUEST, 'Request params');
 call_user_func($run_mode . '_mode');
