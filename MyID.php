@@ -1713,12 +1713,11 @@ if (! array_key_exists('idp_url', $profile))
 			      $_SERVER['PHP_SELF']);
 
 // Determine the requested URL - DO NOT OVERRIDE
-$profile['req_url'] = sprintf("%s://%s%s%s?%s",
+$profile['req_url'] = sprintf("%s://%s%s%s",
 		      $proto,
-		      htmlentities($_SERVER['HTTP_HOST'], ENT_QUOTES),
+		      $_SERVER['HTTP_HOST'],
 		      $port,
-		      $_SERVER['SCRIPT_NAME'],
-		      htmlentities($_SERVER['QUERY_STRING'], ENT_QUOTES));
+		      $_SERVER["REQUEST_URI"]);
 
 // Set the default allowance for testing
 if (! array_key_exists('allow_test', $profile))
