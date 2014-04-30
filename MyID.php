@@ -100,7 +100,7 @@ function accept_mode () {
 	$yes = $profile['req_url'] . $q . 'accepted=yes';
 	$no  = $profile['req_url'] . $q . 'accepted=no';
 
-	wrap_html('The client site you are attempting to log into has requested that you trust the following URL:<br/><b>' . $_SESSION['unaccepted_url'] . '</b><br/><br/>Do you wish to continue?<br/><a href="' . $yes . '">Yes</a> | <a href="' . $no . '">No</a>');
+	wrap_html('The client site you are attempting to log into has requested that you trust the following URL:<br/><b>' . htmlentities($_SESSION['unaccepted_url'], ENT_QUOTES) . '</b><br/><br/>Do you wish to continue?<br/><a href="' . $yes . '">Yes</a> | <a href="' . $no . '">No</a>');
 }
 
 /** * Perform an association with a consumer
@@ -439,7 +439,7 @@ function checkid ( $wait ) {
 	if ($trust_root != $return_to) {
 		// the urls are not the same, be sure return decends from trust
 		if (! url_descends($return_to, $trust_root))
-			error_500('Invalid trust_root: "' . $trust_root . '"');
+			error_500('Invalid trust_root: "' . htmlentities($trust_root, ENT_QUOTES) . '"');
 
 	}
 
@@ -568,7 +568,7 @@ function checkid_setup_mode () {
  */
 function error_mode () {
 	isset($_REQUEST['openid_error']) 
-		? wrap_html($_REQUEST['openid_error'])
+		? wrap_html(htmlentities($_REQUEST['openid_error'], ENT_QUOTES))
 		: error_500();
 }
 
@@ -1715,9 +1715,9 @@ if (! array_key_exists('idp_url', $profile))
 // Determine the requested URL - DO NOT OVERRIDE
 $profile['req_url'] = sprintf("%s://%s%s%s",
 		      $proto,
-		      $_SERVER['HTTP_HOST'],
+		      htmlentities($_SERVER['HTTP_HOST'], ENT_QUOTES),
 		      $port,
-		      $_SERVER["REQUEST_URI"]);
+		      htmlentities($_SERVER["REQUEST_URI"], ENT_QUOTES));
 
 // Set the default allowance for testing
 if (! array_key_exists('allow_test', $profile))
@@ -1792,6 +1792,7 @@ $run_mode = (isset($_REQUEST['openid_mode'])
 	: 'no';
 
 // Run in the determined runmode
+ini_set('session.cookie_httponly',1);
 debug("Run mode: $run_mode at: " . time());
 debug($_REQUEST, 'Request params');
 call_user_func($run_mode . '_mode');
