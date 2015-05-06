@@ -1564,7 +1564,7 @@ function wrap_html ( $message ) {
 <html>
 <head>
 <title>phpMyID</title>
-<link rel="openid.server" href="' . $profile['req_url'] . '" />
+<link rel="openid.server" href="' . htmlentities($profile['req_url'], ENT_QUOTES) . '" />
 <link rel="openid.delegate" href="' . $profile['idp_url'] . '" />
 ' . implode("\n", $profile['opt_headers']) . '
 <meta name="charset" content="' . $charset . '" />
@@ -1717,7 +1717,7 @@ $profile['req_url'] = sprintf("%s://%s%s%s",
 		      $proto,
 		      htmlentities($_SERVER['HTTP_HOST'], ENT_QUOTES),
 		      $port,
-		      htmlentities($_SERVER["REQUEST_URI"], ENT_QUOTES));
+		      $_SERVER["REQUEST_URI"]);
 
 // Set the default allowance for testing
 if (! array_key_exists('allow_test', $profile))
